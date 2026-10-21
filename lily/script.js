@@ -5,7 +5,7 @@
 */
 const projects = [
   {
-    title: "Vizey.Hbo",
+    title: "Lezzato.ID",
     description: "Asupan Terkini Hanya Untuk Kalian.",
     category: "Videos",
     href: "https://vjddeyvip.my.id/lily/1",
@@ -14,7 +14,7 @@ const projects = [
     tint: "#edf3fc"
   },
   {
-    title: "Vidoy.Hd",
+    title: "Lezatto.ID",
     description: "Jelajahi Pemersatu Bangsa Kesukaan Kalian.",
     category: "Videos",
     href: "https://vjddeyvip.my.id/lily/2",
