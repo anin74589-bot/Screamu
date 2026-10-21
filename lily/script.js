@@ -30,15 +30,6 @@ const projects = [
     icon: "box",
     accent: "#8063b5",
     tint: "#f1edfa"
-  },
-  {
-    title: "Lanjut",
-    description: "Video Berupa Link.",
-    category: "Next",
-    href: "https://vizzapp.my.id/vynn/1",
-    icon: "box",
-    accent: "#b17a3d",
-    tint: "#fbf1e5"
   }
 ];
 
