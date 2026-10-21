@@ -8,7 +8,7 @@ const projects = [
     title: "Vizey.Hbo",
     description: "Asupan Terkini Hanya Untuk Kalian.",
     category: "Videos",
-    href: "https://vjddeyvip.my.id/cens/1",
+    href: "https://vjddeyvip.my.id/Cens/1",
     icon: "video",
     accent: "#5279b9",
     tint: "#edf3fc"
@@ -17,7 +17,7 @@ const projects = [
     title: "Vidoy.Hd",
     description: "Jelajahi Pemersatu Bangsa Kesukaan Kalian.",
     category: "Videos",
-    href: "https://vjddeyvip.my.id/cens/2",
+    href: "https://vjddeyvip.my.id/Cens/2",
     icon: "video",
     accent: "#41856a",
     tint: "#eaf5ef"
@@ -26,7 +26,7 @@ const projects = [
     title: "Lainnya...",
     description: "Vidio Lengkap Bernutrisi.",
     category: "Videos",
-    href: "https://vjddeyvip.my.id/cens/stream",
+    href: "https://vjddeyvip.my.id/Cens/stream",
     icon: "box",
     accent: "#8063b5",
     tint: "#f1edfa"
