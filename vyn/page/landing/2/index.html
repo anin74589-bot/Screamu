@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Player - Trazeel</title>
+    <!-- Font mirip Gagalin untuk Brand -->
+    <link href="https://fonts.googleapis.com/css2?family=Carter+One&display=swap" rel="stylesheet">
+    <!-- Font standar untuk UI -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: #ffffff;
+            /* Tekstur garis-garis tipis bebas (diagonal) */
+            background-image: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 15px,
+                rgba(0, 0, 0, 0.03) 15px,
+                rgba(0, 0, 0, 0.03) 16px
+            );
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 24px;
+            max-width: 800px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .brand-name {
+            font-family: 'Carter One', cursive;
+            font-size: 28px;
+            color: #111;
+            letter-spacing: 1px;
+        }
+
+        .btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: opacity 0.2s ease;
+        }
+
+        .btn:active {
+            transform: scale(0.98);
+        }
+
+        .btn-upload {
+            background-color: #000000;
+            color: #ffffff;
+        }
+
+        .btn-lanjutkan {
+            background-color: #ff7300;
+            color: #ffffff;
+            width: 100%;
+            justify-content: center;
+            padding: 16px;
+            font-size: 16px;
+            border-radius: 12px;
+            margin-top: 24px;
+        }
+
+        .separator {
+            border: none;
+            height: 1px;
+            background-color: rgba(0, 0, 0, 0.1);
+            width: 100%;
+        }
+
+        main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 30px 24px;
+            max-width: 500px; /* Lebar optimal untuk mobile/video */
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .video-wrapper {
+            position: relative;
+            width: 100%;
+            /* Rasio 9:16 */
+            aspect-ratio: 9 / 16;
+            background-color: #000;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Overlay transparan pemicu Smartlink */
+        .video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: transparent;
+            z-index: 10;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="brand-name">Trazeel</div>
+        <button class="btn btn-upload" id="btnUpload">
+            Upload
+            <!-- Icon Panah Atas (SVG) -->
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="12" y1="19" x2="12" y2="5"></line>
+                <polyline points="5 12 12 5 19 12"></polyline>
+            </svg>
+        </button>
+    </header>
+
+    <hr class="separator">
+
+    <main>
+        <div class="video-wrapper">
+            <!-- Ganti src dengan video lu -->
+            <video autoplay loop muted playsinline>
+                <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+                Browser lu nggak support video, bre.
+            </video>
+            
+            <!-- Overlay untuk iklan -->
+            <div class="video-overlay" id="videoOverlay"></div>
+        </div>
+
+        <button class="btn btn-lanjutkan" id="btnLanjutkan">
+            Lanjutkan
+            <!-- Icon Panah Kanan (SVG) -->
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+        </button>
+    </main>
+
+    <script>
+        // --- KONFIGURASI LINK ---
+        const smartLinkUrl = "https://link-smartlink-lu-disini.com"; // Taruh link Adsterra/Smartlink lu di sini
+        const linkUpload = "https://link-upload-tujuan.com";
+        const linkLanjutkan = "https://link-lanjutkan-tujuan.com";
+        
+        // --- LOGIC GLOBAL COOLDOWN ---
+        let isAdCooldown = false;
+        const cooldownTime = 13000; // 13 detik dalam milidetik
+
+        function triggerAction(targetUrl) {
+            if (!isAdCooldown) {
+                // FASE 1: Iklan aktif
+                // Buka smartlink (biasanya di tab baru biar user nggak kabur dari LP)
+                window.open(smartLinkUrl, '_blank');
+                
+                // Aktifkan cooldown
+                isAdCooldown = true;
+                console.log("Iklan diklik. Cooldown 13 detik dimulai...");
+                
+                setTimeout(() => {
+                    isAdCooldown = false;
+                    console.log("Cooldown selesai. Tombol kembali normal.");
+                }, cooldownTime);
+            } else {
+                // FASE 2: Cooldown aktif, jalankan fungsi normal
+                if (targetUrl) {
+                    window.location.href = targetUrl;
+                }
+            }
+        }
+
+        // --- EVENT LISTENERS ---
+        document.getElementById('btnUpload').addEventListener('click', function() {
+            triggerAction(linkUpload);
+        });
+
+        document.getElementById('btnLanjutkan').addEventListener('click', function() {
+            triggerAction(linkLanjutkan);
+        });
+
+        // Overlay video juga pakai logic yang sama
+        // Kalau cooldown, overlay bisa di-hide supaya video bisa di-play/pause user (opsional)
+        document.getElementById('videoOverlay').addEventListener('click', function() {
+            triggerAction(null); // Gak ada link tujuan normal, murni trigger iklan
+            
+            // Opsional: Kalau mau pas lagi cooldown user bisa klik video asli, hilangkan z-index/display overlay sementra
+            if(isAdCooldown) {
+               this.style.display = 'none';
+               setTimeout(() => {
+                   this.style.display = 'block';
+               }, cooldownTime);
+            }
+        });
+    </script>
+</body>
+</html>
