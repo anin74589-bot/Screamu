@@ -1,0 +1,14 @@
+{
+  "home": {
+    "enabled": false,
+    "smartlink": "https://araplhn.org/4/c8b1f7069ed9158d482c027e6f64fe5c",
+    "cooldownSeconds": 15,
+    "triggerOnVideoOpen": true
+  },
+  "feed": {
+    "enabled": false,
+    "smartlink": "https://araplhn.org/4/c8b1f7069ed9158d482c027e6f64fe5c",
+    "intervalVideos": 3,
+    "requireTwoTaps": true
+  }
+}
